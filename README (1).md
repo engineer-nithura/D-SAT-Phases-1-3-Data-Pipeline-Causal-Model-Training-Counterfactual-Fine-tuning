@@ -40,7 +40,7 @@ A fine-tuning stage on manually curated counterfactual examples that pushes the 
 
 This project is being built independently in three completed phases, with more to come.
 
-### ✅ Phase 1 — Automated Causal Dataset Generation (YouCook2 Pipeline)
+### Phase 1 — Automated Causal Dataset Generation (YouCook2 Pipeline)
 > *Notebook: `DSAT_Phase1_YouCook2.ipynb`*
 
 Built an end-to-end data pipeline to bootstrap a structured causal dataset from cooking videos:
@@ -55,7 +55,7 @@ Built an end-to-end data pipeline to bootstrap a structured causal dataset from 
 
 ---
 
-### ✅ Phase 2 — Causal Transition Model Training
+### Phase 2 — Causal Transition Model Training
 > *Notebook: `DSAT_Phase2_Training.ipynb`*
 
 Fine-tuned Gemma 3 (2B instruct) on the Phase 1 dataset to learn graph-to-graph causal translation:
@@ -70,7 +70,7 @@ Fine-tuned Gemma 3 (2B instruct) on the Phase 1 dataset to learn graph-to-graph 
 
 ---
 
-### ✅ Phase 3 — Counterfactual Fine-tuning
+### Phase 3 — Counterfactual Fine-tuning
 > *Notebook: `DSAT_Phase3_Counterfactual.ipynb`*
 
 Loads the best Phase 2 checkpoint and fine-tunes on a curated set of counterfactual examples:
@@ -88,34 +88,17 @@ Loads the best Phase 2 checkpoint and fine-tunes on a curated set of counterfact
 
 The following phases are planned to complete the full D-SAT MVP:
 
-### 🔲 Phase 4 — Scale Dataset Generation
+### Phase 4 — Scale Dataset Generation
 Run the Phase 1 pipeline at full scale across the complete YouCook2 training split (and potentially additional video datasets) to produce a significantly larger and more diverse triplet dataset for a full training run.
 
-### 🔲 Phase 5 — Full Training Run & Evaluation
+### Phase 5 — Full Training Run & Evaluation
 Train the Causal Transition Model on the scaled dataset with a proper train/validation/test split. Run a comprehensive final evaluation covering graph similarity metrics, causal accuracy, and counterfactual robustness benchmarks.
 
-### 🔲 Phase 6 — Perception Module Integration
+### Phase 6 — Perception Module Integration
 Connect the frozen DINOv2-based Perception Module to the trained Causal Transition Model, enabling end-to-end inference directly from raw video frames rather than pre-extracted graphs.
 
-### 🔲 Phase 7 — Demo & Report
-Build an interactive demo of the full pipeline (video in → predicted future state graph out) and write up the complete project report covering methodology, results, and limitations.
-
----
-
-## Tech Stack
-
-| Component | Tool |
-|---|---|
-| Dataset | YouCook2 (via HuggingFace) |
-| Video download | yt-dlp + ffmpeg |
-| Teacher VLM | Gemini 2.0 Flash |
-| Causal model base | Gemma 3 2B Instruct |
-| Fine-tuning method | LoRA (via `peft`) |
-| Training framework | HuggingFace Transformers + Accelerate |
-| Evaluation metric | Graph Edit Distance (GED) |
-| Compute | Google Colab (T4 / A100) |
-
----
+### Phase 7 — Demo & Report
+Build an interactive demo of the full pipeline (video in → predicted future state graph out) and write up the complete a final report covering methodology, results, and limitations.
 
 ## Repository Structure
 
@@ -124,9 +107,6 @@ dsat/
 ├── DSAT_Phase1_YouCook2.ipynb       # Data pipeline
 ├── DSAT_Phase2_Training.ipynb       # Model training
 ├── DSAT_Phase3_Counterfactual.ipynb # Counterfactual fine-tuning
-├── triplets.jsonl                   # Generated causal dataset
-├── lora_adapter/                    # Phase 2 checkpoint
-└── lora_adapter_cf/                 # Phase 3 checkpoint
 ```
 
 ---
